@@ -1,1 +1,65 @@
 # 2025-2026-4GP-CHAUPIN-ADJASSE
+# Projet Capteur
+
+Ce projet collaboratif a pour but de mettre en place une chaîne de mesure complète, autonome et connectée permettant de calibrer, caractériser et analyser en temps réel un capteur de déformation low-tech à base de graphite tracé sur papier. 
+
+Le projet se base directement des travaux de *Lin, CW, Zhao, Z., Kim, J. et al. (2014)* publiés dans *Nature*, intitulés **"Pencil Drawn Strain Gauges and Chemiresistors on Paper"**.
+
+---
+
+## Contexte & Principe Physique
+
+Le capteur est réalisé par dépôt de graphite sur une feuille de papier (épaisseur $0.35\text{ mm}$) à l'aide de différents crayons (B, 3B, 6B, 2H, HB). Ce dépôt forme un **système granulaire** dont la conductance dépend de la distance inter-grain :
+* **En compression** : La distance inter-grain diminue, provoquant une augmentation de la conductance (chute de la résistance).
+* **En traction/tension** : La distance augmente, entraînant une hausse de la résistance.
+
+L'objectif de ce projet est de concevoir l'électronique d'acquisition, le système embarqué et l'interface applicative permettant de déduire fidèlement l'angle de flexion et la déformation du papier en fonction de sa résistance.
+
+---
+
+## Fonctionnalités Principales du Système
+
+* **Auto-Calibration Dynamique (Asservissement)** : Compensation automatique de la résistance à plat ($R_0$) du capteur (de l'ordre du $\text{M}\Omega$) via un potentiomètre digital (MCP41010) afin de centrer la tension de repos à $V_{cc}/2$ ($2.5\text{V} \pm 2\%$).
+* **Machine à États Finis (FSM)** : Architecture logicielle Arduino robuste structurée en 4 états distincts : `CALIBRATION`, `CHOIX_MENU`, `MESURE` et `AFFICHAGE`.
+* **Interface Homme-Machine (IHM) Autonome** : Navigation par encodeur rotatif (gestion par interruptions) à travers des menus dynamiques affichés sur un écran OLED SSD1306 (I2C).
+* **Supervision Mobile en Temps Réel** : Application Android dédiée (MIT App Inventor) affichant les graphiques de déformation, les indicateurs de stabilité et un module d'exportation de données scientifiques au format `.txt`.
+
+---
+
+## Architecture Matérielle (Shield PCB)
+
+Le circuit imprimé, conçu sous KiCad et fabriqué par gravure chimique (insolation UV + perchlorure de fer), se branche comme un Shield sur un Arduino Uno.
+
+### Circuit Amplificateur Transimpédance (LTC1050)
+Pour exploiter le très faible courant traversant le capteur à haute résistance, un montage amplificateur transimpédance a été modélisé sur LTSpice. Le rapport signal/bruit est optimisé par **trois filtres passe-bas** :
+1. **Filtre d'entrée (16 Hz)** : Élimine les vibrations mécaniques et tremblements parasites ($C_1 = 100\text{ nF}$, $R_1 = 100\text{ k}\Omega$, $R_5 = 10\text{ k}\Omega$).
+2. **Filtre actif de rétroaction (1.6 Hz)** : Atténue le bruit secteur de $50\text{ Hz}$ du réseau électrique ($C_2 = 1\text{ }\mu\text{F}$, $R_4 = 100\text{ k}\Omega$).
+3. **Filtre de sortie (1.6 kHz)** : Élimine les parasites haute fréquence générés par l'électronique ($C_3 = 100\text{ nF}$, $R_5 = 1\text{ k}\Omega$).
+
+### Configuration des Broches (Pinout PCB)
+
+| Composant | Rôle / Description | Interface / Broches Arduino |
+| :--- | :--- | :--- |
+| **AOP LTC1050** | Amplificateur de signal transimpédance | Entrée Analogique `A0` |
+| **MCP41010** | Potentiomètre numérique (10 kΩ) | Bus SPI (`CS: D8` ou `D10`, `MOSI: D11`, `SCK: D13`) |
+| **OLED 0.96"** | Écran d'affichage I2C (SSD1306) | Bus I2C (`SDA: A4`, `SCL: A5`) |
+| **Encodeur** | Navigation dans le menu déroulat de l'écran OLED | Interruptions (`CLK: D2`, `DT: D4`, `SW: D5` ou `D6`) |
+| **HC-05 / HC-06** | Module de communication Bluetooth | SoftwareSerial (`RX: D5` ou `D8`, `TX: D3` ou `D7`) |
+| **Flex Sensor** | Capteur commercial de comparaison | Pont diviseur de tension ($47\text{ k}\Omega$) |
+
+---
+
+## Structure du Dépôt GitHub
+
+```text
+├── Arduino/
+│   └── Graphene_Analyzer_Pro.ino  # Code complet de la machine à états et des menus
+├── Mobile_App/
+│   ├── Graphene_Supervision.aia   # Fichier source MIT App Inventor (Modifiable)
+│   └── Graphene_Supervision.apk   # Application compilée prête à installer sur Android
+├── Hardware_PCB/
+│   ├── KiCad_Project/             # Schématique (.sch) et Routage (.kicad_pcb)
+│   └── Gerber/                    # Fichiers de fabrication pour gravure / commande
+└── Datasheet_Et_Mesures/
+    ├── Data_Caracterisation.xlsx  # Relevés sur banc de test (crayons B, 3B, 6B, 2H, HB)
+    └── Datasheet_Graphite_Sensor.pdf # Fiche technique finale du capteur
