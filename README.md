@@ -32,7 +32,7 @@ Le circuit imprimé, conçu sous KiCad et fabriqué par gravure chimique (insola
 
 ### Circuit Amplificateur Transimpédance (LTC1050)
 Pour exploiter le très faible courant traversant le capteur à haute résistance, un montage amplificateur transimpédance a été modélisé sur LTSpice. Le rapport signal/bruit est optimisé par **trois filtres passe-bas** :
-1. **Filtre d'entrée (16 Hz)** : Élimine les vibrations mécaniques et tremblements parasites ($C_1 = 100\text{ nF}$, $R_1 = 100\text{ k}\Omega$, // $R_4 = 10\text{ k}\Omega$).
+1. **Filtre d'entrée (175 Hz)** : Élimine les vibrations mécaniques et tremblements parasites ($C_1 = 100\text{ nF}$, $R_1 = 100\text{ k}\Omega$, // $R_4 = 10\text{ k}\Omega$).
 2. **Filtre actif de rétroaction (1.6 Hz)** : Atténue le bruit secteur de $50\text{ Hz}$ du réseau électrique ($C_3 = 1\text{ µF}$, $R_3 = 100\text{ k}\Omega$).
 3. **Filtre de sortie (1.6 kHz)** : Élimine les parasites haute fréquence générés par l'électronique ($C_2 = 100\text{nF}$, $R_5 = 1\text{ k}\Omega$).
 <img width="1903" height="838" alt="image" src="https://github.com/user-attachments/assets/f9453fb7-c03e-4f91-a1b2-26242c6600e3" />
