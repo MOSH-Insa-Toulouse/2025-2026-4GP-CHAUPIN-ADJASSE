@@ -56,12 +56,34 @@ D'où l'extraction mathématique de la résistance du capteur opérée par le fi
 
 $$R_c = \left(1 + \frac{R_3}{R_2}\right) \cdot R_1 \cdot \frac{V_{cc}}{V_{ADC}} - R_1 - R_5$$
 
-Note : La résistance $R_2$ est ajustée dynamiquement en modifiant l'indice du potentiomètre numérique MCP41010 ($R_2 = \text{indice} \times 37\,\Omega + 58\,\Omega$).
+Note : La résistance $R_2$ est ajustée dynamiquement en modifiant l'indice du potentiomètre numérique MCP41010.
 
 ---
-## Architecture Matérielle (Shield PCB)
+
+## Conception & Fabrication du Shield (KiCad)
 
 Le circuit imprimé, conçu sous KiCad et fabriqué par gravure chimique (insolation UV + perchlorure de fer), se branche comme un Shield sur un Arduino Uno.
+
+### Contraintes de Routage & Plan de Masse
+* **Bus SPI (Potentiomètre)** : `SDI` assigné sur la pin `D11` et `SCK` sur `D13`.
+* **Bus I2C (Écran OLED)** : `SDA` assigné sur la pin `A4` et `SCL` sur `A5`.
+* **Interruptions (Encodeur)** : `CLK` impérativement routé sur la pin `D2` (Int 0) pour garantir une capture précise des crans sans latence.
+* Un **plan de masse (GND)** étendu a été configuré sur la face cuivre pour stabiliser les potentiels analogiques et atténuer la diaphonie induite par les transmissions RF du Bluetooth.
+
+  <img width="1060" height="850" alt="image" src="https://github.com/user-attachments/assets/8f67e783-353c-4bf1-9634-5e2f2225f91d" />
+
+### Modifications Matérielles
+Pendant la phase de test du PCB, une correction majeures ont été apportées :
+2. **Routage du MCP41010 Révisé** : Le potentiomètre avait d'abord été configuré selon la 1ère démonstration des TD MOSH. 
+
+<img width="658" height="523" alt="image" src="https://github.com/user-attachments/assets/bb9d0d7f-d7f6-4e08-ab6c-cb84353cdd4a" />
+
+Cathy a alors réussi à réparer le coup en ajoutant des fils et rayant des pistes de cuivre.
+
+![soudure_dessous_merci_cathy_pour_le_rattrapage](https://github.com/user-attachments/assets/a85c1fa2-01e0-4ceb-a9fd-1a356167bd72)
+
+---
+
 
 
 
