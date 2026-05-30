@@ -7,7 +7,6 @@ Ce projet collaboratif a pour but de mettre en place une chaîne de mesure compl
 
 Le projet se base directement des travaux de *Lin, CW, Zhao, Z., Kim, J. et al. (2014)* publiés dans *Nature*, intitulés **"Pencil Drawn Strain Gauges and Chemiresistors on Paper"**.
 
----
 
 ## 1.2 Contexte & Principe Physique
 
