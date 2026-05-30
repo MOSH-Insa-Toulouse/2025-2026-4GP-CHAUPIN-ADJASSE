@@ -136,13 +136,11 @@ Pour calibrer le capteur en graphite, l'équipe a développé un banc de test é
 La fixation mécanique sur les cylindres de calibration s'effectue via des pinces de test Mueller connectées aux zones de contact du film de graphite :
 * **Mode Extension / Traction (Tension)** : Le film en U de graphite est orienté vers l'extérieur (face à l'opérateur). La flexion étire mécaniquement le maillage, augmentant la distance inter-grain de la couche de carbone, ce qui induit une élévation de la résistance globale ($R_{capt} \uparrow$).
 
-![test_traction](https://github.com/user-attachments/assets/47a3309f-54c4-4ba4-a193-5ecbff203d40)
-
+<img width="456" height="613" alt="image" src="https://github.com/user-attachments/assets/feb3241c-503b-4ee5-9666-3cf20a5ba546" />
   
 * **Mode Compression** : Le capteur est retourné face blanche apparente, la couche active de graphite étant plaquée directement contre la structure cylindrique du gabarit vert. La courbure comprime les feuillets de graphite, réduisant la barrière tunnel inter-particulaire et provoquant une baisse de la résistance électrique ($R_{capt} \downarrow$).
 
-![test_compression](https://github.com/user-attachments/assets/09802287-3079-4c75-90ca-4a49442f8cd9)
-
+<img width="457" height="607" alt="image" src="https://github.com/user-attachments/assets/1505fbd5-4736-4b55-b708-6b78134a3593" />
 
 ### Synthèse des Résultats Métrologiques (Datasheet)
 Les essais ont permis de comparer les facteurs de jauge (sensibilité $K$) et la répétabilité en fonction de la texture du crayon employé (2H, HB, 2B, 4B, 6B) :
