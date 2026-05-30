@@ -1,14 +1,15 @@
 ##### **Promotion 2025-2026 Génie Physique INSA TOulouse** — *Marie-Charbel ADJASSE-ABENI & Baptiste CHAUPIN*
 **Encadrants :** J. Grisolia, B. Mestre, A. Biganzoli, C. Crouzet
 
-# 1.1 Projet Capteur
+# Projet Capteur
 
 Ce projet collaboratif a pour but de mettre en place une chaîne de mesure complète, autonome et connectée permettant de calibrer, caractériser et analyser en temps réel un capteur de déformation low-tech à base de graphite tracé sur papier. 
 
 Le projet se base directement des travaux de *Lin, CW, Zhao, Z., Kim, J. et al. (2014)* publiés dans *Nature*, intitulés **"Pencil Drawn Strain Gauges and Chemiresistors on Paper"**.
 
+---
 
-## 1.2 Contexte & Principe Physique
+### Contexte & Principe Physique
 
 Le capteur est réalisé par dépôt de graphite sur une feuille de papier (épaisseur $0.35\text{ mm}$) à l'aide de différents crayons (B, 3B, 6B, 2H, HB). Ce dépôt forme un **système granulaire** dont la conductance dépend de la distance inter-grain :
 * **En compression** : La distance inter-grain diminue, provoquant une augmentation de la conductance (chute de la résistance).
@@ -18,7 +19,7 @@ L'objectif de ce projet est de concevoir l'électronique d'acquisition, le syst�
 
 ---
 
-### 2.1 Livrables du Projet
+### Livrables du Projet
 1. Un **Shield PCB personnalisé** pour Arduino UNO (mesure, amplification et communication).
 2. Un **Code source Arduino (C++)** structuré en machine à états gérant l'acquisition et l'IHM.
 3. Une **Application Android (.APK)** sous MIT App Inventor assurant la supervision et le tracé graphique en temps réel.
@@ -26,7 +27,7 @@ L'objectif de ce projet est de concevoir l'électronique d'acquisition, le syst�
 
 ---
 
-### 2.2 Composants Utilisés
+### Composants Utilisés
 * **Microcontrôleur :** Carte Arduino UNO Rev 3.
 * **Amplification (AOP) :** LTC1050.
 * **Passifs d'instrumentation :** Résistances ($2 \times 1\text{ k}\Omega$, $1 \times 10\text{ k}\Omega$, $2 \times 100\text{ k}\Omega$) & Condensateurs ($2 \times 100\text{ nF}$, $1 \times 1\text{ }\mu\text{F}$).
@@ -36,7 +37,7 @@ L'objectif de ce projet est de concevoir l'électronique d'acquisition, le syst�
 * **Comparaison avec un capteur disponible sur le marché :** Capteur de flexion commercial (Flex Sensor Flexpoint / LLC 1070) + Résistance de charge de $47\text{ k}\Omega$.
 
 ---
-## 3. Simulation Électronique & Conditionnement (LTSpice)
+### Simulation Électronique & Conditionnement (LTSpice)
 
 Le capteur de graphite présente une résistance à vide très élevée (de l'ordre du $\text{M}\Omega$ au $\text{G}\Omega$ selon le crayon utilisé). Sous une alimentation de $5\text{V}$, le courant généré est de l'ordre du nanoampère ($\text{nA}$). Un étage d'amplification est indispensable pour adapter le signal à la dynamique du convertisseur analogique-numérique (ADC) de l'Arduino ($0 - 5\text{V}$).
 
@@ -55,7 +56,7 @@ D'où l'extraction mathématique de la résistance du capteur opérée par le fi
 
 $$R_c = \left(1 + \frac{R_3}{R_2}\right) \cdot R_1 \cdot \frac{V_{cc}}{V_{ADC}} - R_1 - R_5$$
 
-*Note : La résistance $R_2$ est ajustée dynamiquement en modifiant l'indice du potentiomètre numérique MCP41010 ($R_2 = \text{indice} \times 37\,\Omega + 58\,\Omega$).*
+Note : La résistance $R_2$ est ajustée dynamiquement en modifiant l'indice du potentiomètre numérique MCP41010 ($R_2 = \text{indice} \times 37\,\Omega + 58\,\Omega$).
 
 ---
 ## Architecture Matérielle (Shield PCB)
